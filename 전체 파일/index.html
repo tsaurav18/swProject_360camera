@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+  <head>
+      <meta charset="UTF-8">
+      <title></title>
+      <!-- <link rel="stylesheet" href="index.css"/> -->
+      <!-- <link rel="stylesheet" href="../videoPlayer/style.css" type="text/css"> -->
+      <style>   
+ 
+       .polygon {
+        position: relative;
+        width: 50%;
+        height: 50%;
+      }
+      .polygon svg {
+        position: absolute;
+        width: 50%;
+        height: 50%;
+      }
+      .play-button svg {
+        position: absolute;
+        width: 50%;
+        height: 50%;
+      }
+      .bottom-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color:"red";
+
+
+}
+.left-controls {
+  display: flex;
+  align-items: center;
+  color: #fff;
+
+}
+button {
+  cursor: pointer;
+  margin-right: 7px;
+  font-size: 12px;
+  padding: 3px;
+  border: none;
+  outline: none;
+
+
+
+
+}
+
+
+      </style>
+  </head>
+  <body>
+      <header></header>
+
+<!--
+        <canvas id="canvas" width="1000" height="800" style="border:1px solid #000000; background-size: cover;" > </canvas> -->
+ <video controls class="video" id="video" preload="metadata" poster="thumbnail.png">
+<source  id="canvas" src="video.mp4" type="video/mp4"></source>      </video>  
+        <div class="bottom-controls">
+          <div class="left-controls">
+            
+            <svg data-title="Play (k)"  class="circle-fill playback-icons" id="play">
+              <circle cx="41" cy="41" r="20" stroke="#fff" stroke-width="1"></circle>
+              <polygon fill="none" stroke="#fff" stroke-width="1" points="32,30 32,53 55,42"></polygon>
+            </svg>
+   
+            
+            <!-- <button data-title="Play (k)" id="play">
+              <svg class="playback-icons">
+                <use href="#play-icon"></use>
+                <use class="hidden" href="#pause"></use>
+              </svg>
+            </button> -->
+            </div>
+            </div>
+
+     
+  </body>
+</html>
+
+<script>
+  function main() {
+    const imageURL = []; // list of image URLs
+  for(var i =0; i<201;i++){
+    imageURL.push(`../photos/${i}.jpg`)
+  }
+  console.log(imageURL)
+  //get the canvas id 
+var myCanvas = document.getElementById("canvas");
+  var myContext = myCanvas.getContext("2d");
+
+// iterate each image URL, create, load, and add it to the images array
+
+imageURL.forEach(src => {  // for each image url
+  const img = new Image(); 
+  img.src = src
+  img.onload = () => { 
+    myContext.drawImage(img, 0, 0);     
+       }
+});
+  }
+ 
+ main()
+ const video = document.getElementById("canvas");
+ const playButton = document.getElementById("play");
+ console.log("video", video)
+ function updatePlayButton() {
+  console.log("enter into updatePlayButton", video)
+  if (video.paused) {
+    main();
+    console.log("into updatedplayButton play", playButton);
+    playButton.setAttribute("data-title", "Play (k)");
+  } else {
+    playButton.setAttribute("data-title", "Pause (k)");
+  }
+}
+
+playButton.addEventListener("click", updatePlayButton);
+video.addEventListener("pause", updatePlayButton);
+
+  </script>
